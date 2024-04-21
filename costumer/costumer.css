@@ -1,0 +1,138 @@
+
+::-webkit-scrollbar{
+  display: none;
+}
+body{
+    background-color:black;
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    margin-bottom: 100px;
+    padding: 0;
+    box-sizing: border-box;
+    padding-bottom: 50px;
+}
+ h1 h2 h3 h4 h5 h6 p {
+    color: white;
+ }
+.login-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    gap: 50px;
+  }
+  
+  .login-form{
+  
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    gap: 30px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                  -10px -10px 20px rgba(255, 255, 255, 0.2);
+  }
+  .input {
+    height: 50px;
+    border: 2px solid #ddd; 
+    border-radius: 25px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+  }
+  
+  .btn-div{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(50, 160, 50); 
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: rgb(50, 160, 50); 
+  }
+  a {
+    color: white;
+  }
+  
+  .btn-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .head-1{
+    color: white;
+    font-weight: 1000;
+    font-style: normal;
+    margin-left: 47px;
+    font-size: 60px;
+  }
+  .para{
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .list-order{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+   
+  }
+  
+.db-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 100vw;
+    height: fit-content;
+    padding: 50px;
+    
+}
+  .list{
+    color: white;
+    border: 1px solid  rgb(46, 117, 46);
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    height: auto;
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+
+  }
+  .order{
+    color: white;
+    border: 1px solid  rgb(46, 117, 46);
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    height: auto;
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-3{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(103, 102, 102);
+    border-radius: 10px;
+    margin: 10px;
+  }

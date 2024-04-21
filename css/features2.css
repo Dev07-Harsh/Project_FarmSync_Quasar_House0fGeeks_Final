@@ -1,0 +1,218 @@
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
+       body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-y: scroll;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 0;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #333333;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.nav-links a:hover {
+    background-color: #555555;
+}
+
+.dropdown {
+    height: fit-content;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.dropdown-content {
+    
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(2, 2, 2, 0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: rgb(160, 160, 160);
+    /* padding: 12px 16px; */
+    text-decoration: none;
+     display: flex;
+    gap: 15px;
+}
+.dropdown-content a:hover {
+    background-color: #dce1da;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    animation: fadeIn 1s ease;
+}
+
+.card {
+    width: 300px;
+    background-color: #1c1c1c;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.1), 
+                -5px -5px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    background-color: #333333;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.card-content h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.card-content p {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.inner-box-2{
+    display: flex;
+    gap: 100px;
+   flex-direction: row-reverse;
+}
+.card-box{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: center;
+    gap: 100px;
+}
+.inner-card-box{
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    align-items: center;
+}
+.box-text{
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+}
+h1 {
+    color: white;
+}
+p {
+    color: white;
+}
+
+.btn {
+    padding: 12.5px 30px;
+    border: 0;
+    width: fit-content;
+    border-radius: 100px;
+    background-color: rgb(50, 160, 50);
+    color: #ffffff;
+    font-weight: Bold;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  .btn:hover {
+    background-color: rgb(50, 160, 50);
+    box-shadow: 0 0 20px #6fc5ff50;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  .btn:active {
+    background-color: rgb(50, 160, 50);
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+
+  
+   

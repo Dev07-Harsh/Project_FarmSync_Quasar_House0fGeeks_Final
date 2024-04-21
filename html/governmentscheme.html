@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Schemes</title>
+    <style>
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        body{
+            background-color: black;
+            padding: 0;
+            margin: 0;
+        }
+        h1 ,h2, h3, h4 ,p{
+            color: white;
+        }
+        .card-out{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            min-width: 500px;
+            padding: 20px;
+            width: fit-content;
+            max-height: fit-content; /* Fixed height of card */
+            transition: max-height 0.3s ease;
+            box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.1), 
+                -10px -10px 20px rgba(255, 255, 255, 0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .card p {
+            margin-bottom: 0;
+        }
+        .more-content {
+            overflow-y: auto;
+            max-height: fit-content; /* Fixed height of content */
+        }
+        .read-more {
+            color: rgb(5, 247, 5);
+            cursor: pointer;
+        }
+.card1{
+    margin-top: 20px;
+}
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 0;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #333333;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.nav-links a:hover {
+    background-color: #555555;
+}
+.dropdown {
+            position: relative;
+            display: inline-block;
+            gap: 15px;
+        }
+        .dropdown-content {
+            
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(2, 2, 2, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: rgb(5, 249, 5);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #dce1da;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="../assets/images/logo with no bg.png" alt="" style="height: 50px; width: 50px;">
+            <h3>FarmSync</h3>
+            </div>
+        <nav class="nav-links">
+            <a href="../html/demo.html">Home</a>
+            <a href="#">About</a>
+            <div class="dropdown">
+                <a href="#">Services</a>
+                <div class="dropdown-content">
+                    <a href="http://127.0.0.1:5000">CropCare AI</a>
+                    <a href="./governmentscheme.html">AgricSchemes</a>
+                    
+                    <a href="./marketPlace.html">FarmersFirst Market</a>
+                    <a href="http://127.0.0.1:5001">Crop Recommendation Tool</a>
+                    <a href="http://localhost:8501">Kisan Mitra</a>
+                    <a href="./framerworker.html">The Khet Crew</a>
+                    <a href="#">Service 3</a>
+                </div>
+            </div>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+<div class="card-out">
+    <div class="card card1">
+        <h3>Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) :</h3>
+        <div class="more-content" style="display: none;">
+            <p>The Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) is a Central Sector Scheme that provides income support to the families of landholding farmers in India.
+                All landholding farmers' families in India are eligible for the scheme, subject to certain exclusions.
+                An annual financial benefit of ₹6,000/- is provided directly to the bank accounts of eligible farmers in three equal installments of ₹2,000/- each. link :
+               <a href="https://pmkisan.gov.in/#MainContent">https://pmkisan.gov.in/#MainContent</a> </p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div>
+    
+    <div class="card card1">
+        <h3>Pradhan Mantri Kisan Maan Dhan Yojana (PM-KMY) :</h3>
+        <div class="more-content" style="display: none;">
+            <p>The Pradhan Mantri Kisan Maan Dhan Yojana (PM-KMY) is a voluntary and contributory pension scheme launched by the Indian government to provide social security to small and marginal farmers (SMFs) after they reach retirement age.
+                Open to small and marginal farmers aged 18-40 years who own cultivable land up to 2 hectares.
+                Offers a minimum fixed pension of ₹3,000 per month upon reaching 60 years of age. The government matches the monthly contribution made by the farmer. Offers a minimum fixed pension of ₹3,000 per month upon reaching 60 years of age. The government matches the monthly contribution made by the farmer.
+                link : 
+                <a href="https://maandhan.in/">https://maandhan.in/</a> </p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div>
+    <div class="card">
+        <h3>Kisan Credit Card (KCC):</h3>
+        <div class="more-content" style="display: none;">
+            <p>KCC provides concessional credit to farmers for their cultivation and other needs . It acts as a single window for various agricultural needs, simplifying the loan application process.
+                Primarily for farmers holding cultivable land. Banks assess eligibility based on factors like landholding, crop pattern, and credit history. Offers a flexible credit limit to meet various expenses like purchasing seeds, fertilizers, pesticides, and machinery. 
+                It can also cover post-harvest storage, household needs, and investment in allied agricultural activities.
+                link : 
+                <a href="https://www.myscheme.gov.in/schemes/kcc">https://www.myscheme.gov.in/schemes/kcc</a></p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div><div class="card">
+        <h3>Pradhan Mantri Fasal Bima Yojana (PMFBY) : </h3>
+        <div class="more-content" style="display: none;">
+            <p> It aims to provide financial protection to farmers against unforeseen losses caused by natural calamities, pests, and diseases.
+                Provides insurance cover for a wide range of notified crops, including food & oilseeds, horticulture crops, and annual commercial crops. Coverage extends from pre-sowing to post-harvest stages.
+                In case of crop loss due to insured perils, farmers receive compensation based on the pre-determined sum insured for their specific crop. This helps them recover financially and re-start farming activities.
+                link :
+                <a href="https://www.pmfby.gov.in/.">https://www.pmfby.gov.in/.</a> </p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div><div class="card">
+        <h3>Pradhan Mantri Krishi Sinchai Yojana (PMKSY) : </h3>
+        <div class="more-content" style="display: none;">
+            <p> The Pradhan Mantri Krishi Sinchai Yojana (PMKSY), launched in 2015, is a large-scale government initiative aimed at improving irrigation infrastructure and water management practices in India. 
+                It has a two-pronged approach: expanding irrigated land area and promoting water use efficiency.
+                This central theme focuses on creating new sources of irrigation and improving existing ones to bring more land under assured irrigation.
+                link : 
+                <a href="https://pmksy.gov.in/">https://pmksy.gov.in/</a></p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div><div class="card">
+        <h3>Soil Health Card Scheme :</h3>
+        <div class="more-content" style="display: none;">
+            <p>The Soil Health Card Scheme, launched by the Government of India in 2015, is a crucial initiative aimed at empowering farmers with knowledge about their soil health. This empowers them to make informed decisions about fertilizer use and improve agricultural productivity and sustainability.
+                The scheme provides farmers with free soil testing services every three years. Soil samples are collected from their landholdings and analyzed in designated laboratories.
+                By following the informed fertilizer recommendations, farmers can improve soil health and fertility in the long run. This leads to better crop yields and potentially higher farm incomes.
+                link :
+                <a href="https://soilhealth.dac.gov.in/home">https://soilhealth.dac.gov.in/home</a> .</p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div><div class="card">
+        <h3>Pradhan Mantri Gram Sadak Yojana (PMGSY) : </h3>
+        <div class="more-content" style="display: none;">
+            <p>The Pradhan Mantri Gram Sadak Yojana (PMGSY), launched in December 2000, is a centrally sponsored scheme that aims to provide all-weather road connectivity to unconnected villages in rural India. 
+                It plays a vital role in bridging the rural-urban divide and boosting socio-economic development in remote areas.
+                The scheme prioritizes connecting habitations with a population of 500 and above in plain areas and 250 and above in hilly areas, tribal areas, and other backward regions. This ensures even development across rural India.
+                link :
+                <a href="https://omms.nic.in/">https://omms.nic.in/</a> </p>
+        </div>
+        <p class="read-more">Read more</p>
+    </div><div class="card">
+        <h3>Market Intervention Scheme, Price Support Scheme (PSS) :</h3>
+        <div class="more-content" style="display: none;">
+            <p>Both MIS and PSS are government schemes in India that aim to support farmers by ensuring they receive a fair price for their produce. 
+                (MIS)-To protect farmers from distress sale during bumper harvests when market prices for perishable and horticultural commodities fall sharply.
+                (PSS)To ensure farmers receive a minimum price (MSP) set by the government for certain food grains. This protects them from significant price fluctuations and provides a safety net.
+                link :
+                <a href="https://pib.gov.in/PressReleaseIframePage.aspx?PRID=1809685">https://pib.gov.in/PressReleaseIframePage.aspx?PRID=1809685</a> </p>
+        </div>
+        <p class="read-more">Read more</p>
+</div>
+
+
+<script>
+    // Add event listener to "read more" links
+    const readMoreLinks = document.querySelectorAll('.read-more');
+    readMoreLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const moreContent = link.previousElementSibling;
+            if (moreContent.style.display === "none") {
+                moreContent.style.display = "block";
+                link.textContent = "Read less";
+                link.style.color = "red";
+            } else {
+                moreContent.style.display = "none";
+                link.textContent = "Read more";
+                link.style.color = "blue";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard</title>
+    <link rel="stylesheet" href="costumer.css">
+</head>
+<body>
+    <div class="login-div" id="loginC">
+        <div id="login-container" class="login-form">
+            <h1 style="color: rgb(4, 250, 4);">Buyer Login</h1>
+            <input type="email" id="email" placeholder="Email" class="input">
+            <input type="password" id="password" placeholder="Password" class="input">
+            <div class="btn-div"><button onclick="login()" class="btn">Login</button></div>
+            
+            <p style="color: white;">Don't have an account? <a href="#" onclick="showSignupForm()">Sign up here</a></p>
+        </div>
+    </div>
+    
+    <div class="login-div" id="signupC">
+        <div id="signup-container" style="display: none;" class="login-form">
+            <h1 style="color: rgb(4, 250, 4);">Buyer Signup</h1>
+            <input type="email" id="signup-email" placeholder="Email" class="input">
+            <input type="password" id="signup-password" placeholder="Password" class="input">
+            <div class="btn-div"><button onclick="signup()" class="btn">Signup</button></div>
+            
+            <p style="color: white;">Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+        </div>
+    </div>
+    
+
+    <div id="dashboard" style="display: none;" class="db-container">
+        <h1 style="color: white;">Welcome to Buyer  <span style="color: rgb(4, 250, 4);">Dashboard</span></h1>
+        <button onclick="logout()" class="btn">Logout</button>
+
+      
+      <div class="list-order">
+
+        <div class="list">
+            <h2>All Listings:</h2>
+        <ul id="listings"></ul>
+        </div>
+
+        <div class="order">
+            <h2>Your Orders:</h2>
+            <ul id="orders"></ul>
+        </div>
+
+        
+
+      </div>
+
+       
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script>
+        // can be used from .env file but for simplicity used directly
+        const firebaseConfig = {
+    
+  };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Function to switch to signup form
+        function showSignupForm() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("signup-container").style.display = "flex";
+            document.getElementById("loginC").style.height= "0";
+        }
+
+        // Function to switch to login form
+        function showLoginForm() {
+            document.getElementById("login-container").style.display = "flex";
+            document.getElementById("signup-container").style.display = "none";
+            document.getElementById("signupC").style.height= "0";
+        }
+
+        // Function to log in the Buyer
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    showDashboard();
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error logging in:", errorMessage);
+                    alert(errorMessage);
+                });
+        }
+
+        // Function to sign up a new Buyer
+        function signup() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed up successfully
+                    const user = userCredential.user;
+                    alert("Signup successful! Please login.");
+                    showLoginForm();
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error signing up:", errorMessage);
+                    alert(errorMessage);
+                });
+        }
+
+        // Function to log out the user
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                // Sign-out successful.
+                window.location.reload(); // Reload the page
+            }).catch((error) => {
+                // An error happened.
+                console.error("Error logging out:", error);
+            });
+        }
+
+        // Function to buy a listing
+        function buyListing(listingId, crop, pricePerKg, availableQuantity,farmerId) {
+            const quantity = parseFloat(prompt("Enter quantity (in kg) to buy:"));
+            if (isNaN(quantity) || quantity <= 0) {
+                alert("Invalid quantity.");
+                return;
+            }
+
+            if (quantity > availableQuantity) {
+                alert("Insufficient quantity available.");
+                return;
+            }
+
+            const totalCost = quantity * pricePerKg;
+            const confirmation = confirm(`Total cost: $${totalCost.toFixed(2)}. Proceed with the purchase?`);
+            if (confirmation) {
+                // Add order to the database
+                db.collection("orders").add({
+                    listingId: listingId,
+                    BuyerId: firebase.auth().currentUser.uid,
+                   farmerId: farmerId,
+                    crop: crop,
+                    quantity: quantity,
+                    totalCost: totalCost
+                })
+                .then(() => {
+                    console.log("Order placed successfully.");
+                })
+                .catch((error) => {
+                    console.error("Error placing order:", error);
+                });
+            }
+        }
+
+        // Function to show the Buyer dashboard
+        function showDashboard() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("signup-container").style.display = "none";
+            document.getElementById("dashboard").style.display = "flex";
+            document.getElementById("loginC").style.height="0";
+            document.getElementById("signupC").style.height="0";
+            // Load all listings
+            db.collection("listings").onSnapshot((querySnapshot) => {
+                const listings = document.getElementById("listings");
+                listings.innerHTML = ""; // Clear previous listings
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const li = document.createElement("li");
+                    li.textContent = `${data.crop} - $${data.pricePerKg.toFixed(2)} per kg (${data.availableQuantity} kg available)`;
+                    const buyButton = document.createElement("button");
+                    buyButton.textContent = "Buy";
+                    //buyButton.classList.add("btn btn-3");
+                    buyButton.onclick = () => buyListing(doc.id, data.crop, data.pricePerKg, data.availableQuantity,data.farmerId);
+                    li.appendChild(buyButton);
+                    listings.appendChild(li);
+                });
+            });
+
+            // Load orders of the current Buyer
+            db.collection("orders").where("BuyerId", "==", firebase.auth().currentUser.uid)
+                .onSnapshot((querySnapshot) => {
+                    const orders = document.getElementById("orders");
+                    orders.innerHTML = ""; // Clear previous orders
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const li = document.createElement("li");
+                        li.textContent = `Order ID: ${doc.id}, Crop: ${data.crop}, Quantity: ${data.quantity} kg, Total Cost: $${data.totalCost.toFixed(2)}`;
+                        orders.appendChild(li);
+                    });
+                });
+        }
+
+        // Check if the user is already logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                showDashboard();
+            }
+        });
+    </script>
+</body>
+</html>

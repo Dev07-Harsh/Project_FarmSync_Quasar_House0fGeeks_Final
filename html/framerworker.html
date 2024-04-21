@@ -1,0 +1,271 @@
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers and Workers</title>
+    <style>
+        ::-webkit-scrollbar{
+        display: none;
+    }
+     body {
+    background-color: black;
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+        }
+        .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 0;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #333333;
+    box-shadow: 5px 5px 10px #1c1c1c, 
+                -5px -5px 10px #323232;
+}
+
+.nav-links a:hover {
+    background-color: #555555;
+}
+
+
+.text-container{
+            height: 50vh;
+            width: 100vw;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            
+            align-items: center;
+ }
+ .h1{       color: white;
+            font-size: 60px;
+            font-weight: 1000;
+}
+.para{       color: white;
+            font-size: 25px;
+            font-weight: 400;
+        }
+
+.btn {
+    width: fit-content;
+    padding: 15px;
+    height: 50px;
+    background-color: rgb(50, 160, 50); 
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+
+.btn:hover {
+    background-color: rgb(50, 160, 50); 
+        }
+
+.main-container{
+            padding: 0;
+            margin: 0;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+.workerlist{
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 50px;
+            padding: 100px;
+            justify-content: center;
+
+        }
+.worker-container {
+            color: white;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            height: fit-content;
+            width: fit-content;
+            border-radius: 15px;
+            background-color: #333333;
+            box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+.worker-container p {
+            margin: 5px 0;
+        }
+
+.worker-container.available {
+            border-color: green;
+        }
+
+.worker-container.not-available {
+            border-color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="../assets/images/logo with no bg.png" alt="" style="height: 50px; width: 50px;">
+            <h3>FarmSync</h3>
+            </div>
+        <nav class="nav-links">
+            <a href="../html/demo.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+
+     <div class="text-container">
+        <h1 class="h1">Local Workforce Locator for <span style="color: rgb(50, 160, 50) ;">Farmers</span></h1>
+      <p class="para">Locate skilled workers nearby. <br> Boost farm productivity effortlessly.
+         <br> Connect with local talent seamlessly.</p>
+
+          <!-- Button to fetch available workers -->
+     <button onclick="fetchAvailableWorkers()" class="btn">Find Workers near you</button>
+     </div>
+    
+    
+
+     <div class="main-container">
+      
+      
+       <div id="workerList" class="workerlist"></div>
+
+      
+    
+     </div>
+
+     <div id="farmerLocation"></div>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script>
+       // can be used from .env file but for simplicity used directly
+        const firebaseConfig = {
+           
+        };
+        firebase.initializeApp(firebaseConfig);
+
+       
+        const db = firebase.firestore();
+
+       
+        function fetchAvailableWorkers() {
+           
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const farmerLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    // Display farmer's coordinates
+                    const farmerLocationElement = document.getElementById('farmerLocation');
+      farmerLocationElement.textContent = `Farmer's Location: Latitude ${farmerLocation.lat}, Longitude ${farmerLocation.lng}`;
+
+                   
+                    db.collection('workers').get()
+                        .then((querySnapshot) => {
+                            const workerListElement = document.getElementById('workerList');
+                            workerListElement.innerHTML = ''; 
+                            querySnapshot.forEach((doc, index) => {
+                                const worker = doc.data();
+                                const workerLocation = worker.location.split(',').map(parseFloat);
+                                const distance = getDistanceFromLatLonInKm(
+                                    farmerLocation.lat,
+                                    farmerLocation.lng,
+                                    workerLocation[0],
+                                    workerLocation[1]
+                                );
+                                const listItem = document.createElement('div');
+                                listItem.className = `worker-container ${worker.availability ? 'available' : 'not-available'}`;
+
+                                listItem.innerHTML = `
+                                    <p>Name: ${worker.name}</p>
+                                    <p>Email: ${worker.email}</p>
+                                    <p>Contact: ${worker.Contact}</p>
+                                    <p>Daily Rate: ${worker.dailyRate}</p>
+                                   
+                                    <p>Skills: ${worker.skills.join(', ')}</p>
+                                    <p>Work History: ${worker.workHistory}</p>
+                                    <p>Distance from Farmer: ${distance.toFixed(2)} km</p>
+                                    <p style="color: ${worker.availability ? 'green' : 'red'}">Availability: ${worker.availability ? 'Available' : 'Not Available'}</p>
+                                `;
+                                workerListElement.appendChild(listItem);
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching workers:', error);
+                        });
+                }, (error) => {
+                    console.error('Error fetching current location:', error);
+                });
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        }
+
+      
+        function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; 
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const d = R * c; 
+            return d;
+        }
+
+        function deg2rad(deg) {
+            return deg * (Math.PI / 180);
+        }
+    </script>
+</body>
+</html>

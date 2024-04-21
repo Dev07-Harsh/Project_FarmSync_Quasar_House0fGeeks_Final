@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+     crossorigin="anonymous">
+     <link rel="stylesheet" href="../css/style.css">
+     <link rel="stylesheet" href="../css/marketPlace.css">
+     
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+         wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,
+wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="../assets/images/logo with no bg.png" alt="" style="height: 50px; width: 50px;">
+            <h3>FarmSync</h3>
+            </div>
+        <nav class="nav-links">
+            <a href="../html/demo.html">Home</a>
+            
+        </nav>
+    </div>
+
+    <div class="login-div">
+
+       <h1 style="color: white;" id="heading">Farmers <span style="color: rgb(8, 253, 8);">Login </span>Page</h1>
+
+        <div id="login-container" class="login-form">
+            <h1 style="color: white;">Farmer Login</h1>
+            <input type="email" id="email" placeholder="Email" class="input">
+            <input type="password" id="password" placeholder="Password" class="input">
+            <div class="btn-div">
+                <button onclick="login()" class="btn">Login</button>
+            </div>
+            
+            <p style="color: white;">Don't have an account? <a href="#" onclick="showSignupForm()" style="color: white; margin-left: 10px;">Sign up here</a></p>
+        </div>
+    
+        <div id="signup-container" style="display: none;" class="login-form">
+            <h1>Farmer Signup</h1>
+            <input type="email" id="signup-email" placeholder="Email" class="input">
+            <input type="password" id="signup-password" placeholder="Password"  class="input">
+            <div class="btn-div">
+                <button onclick="signup()" class="btn ">Signup</button>
+            </div>
+            
+            <p>Already have an account? <a href="#" onclick="showLoginForm()" style="color: white; margin-left: 10px;">Login here</a></p>
+        </div>
+    </div>
+    
+
+   
+    
+   
+    
+
+    <div id="dashboard" style="display: none;" class="db-container">
+       
+        <div class="banner-out">
+            <div class="banner">
+                <h1 class="head-1"> Farmers' Direct Sales  <span style="color: rgb(50, 160, 50) ;">
+                    Marketplace</span></h1>
+                <p class="para">Empowering farmers by connecting them directly with consumers, <br>
+                     our marketplace eliminates middlemen, 
+                     ensuring fair <br> prices and quality produce.</p>
+            </div>
+            
+
+        </div>
+
+    
+        <div class="add-cont">
+            <h4 style="margin-left: 47px; color: white;">Add New List:</h4>
+        <div class="add-new-list ">
+            <input type="text" id="crop" placeholder="Crop Name" class="form-control ip-box">
+            <input type="number" id="price" placeholder="Price per kg" class="form-control ip-box">
+            <input type="number" id="quantity" placeholder="Available Quantity" class="form-control ip-box">
+            <button onclick="addListing()" class="btn">Add List</button>
+        </div>
+        </div>
+        
+        
+       
+        <div class="eligible-credit">
+            <!-- credit section -->
+            <h4>Eligible for Credit:</h4>
+            <lottie-player src="https://lottie.host/66dfe7ce-7eb5-42d7-8eee-f75f2b6b67d9/kz8u7g4Oz7.json" 
+            background="##FFFFFF" speed="1" style="width: 200px; height: 200px; color : green"
+             loop  autoplay direction="1" mode="normal"></lottie-player>
+        <p id="credit-value"></p> 
+        </div>
+
+        
+       <div class="list-order">
+
+        <div class="list">
+            <h4>Listings:</h4>
+        <ul id="listings"></ul>
+        </div>
+        
+        
+        <div class="order">
+            <h4>Orders Received:</h4>
+        <ul id="orders"></ul>
+        </div>
+        
+       </div>
+ 
+       <div class="btn-container">
+        <button onclick="logout()" class="btn btn-2">logout</button>
+       </div>
+       
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script>
+       // can be used from .env file but for simplicity used directly
+        const firebaseConfig = {
+   
+  };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // switch to signup form
+        function showSignupForm() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("signup-container").style.display = "flex";
+        }
+
+        //  switch to login form
+        function showLoginForm() {
+            document.getElementById("login-container").style.display = "flex";
+            document.getElementById("signup-container").style.display = "none";
+        }
+
+        // Function to log in the farmer
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                   
+                    const user = userCredential.user;
+                    showDashboard();
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error logging in:", errorMessage);
+                    alert(errorMessage);
+                });
+        }
+
+        // Function to sign up a new farmer
+        function signup() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                  
+                    const user = userCredential.user;
+                    alert("Signup successful! Please login.");
+                    showLoginForm();
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error signing up:", errorMessage);
+                    alert(errorMessage);
+                });
+        }
+
+       
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                // Sign-out successful.
+                window.location.reload(); 
+            }).catch((error) => {
+               
+                console.error("Error logging out:", error);
+            });
+        }
+
+        
+        function addListing() {
+            const crop = document.getElementById("crop").value;
+            const price = parseFloat(document.getElementById("price").value);
+            const quantity = parseFloat(document.getElementById("quantity").value);
+
+            if (!crop || isNaN(price) || isNaN(quantity)) {
+                alert("Please fill in all fields with valid data.");
+                return;
+            }
+
+            db.collection("listings").add({
+                crop: crop,
+                pricePerKg: price,
+                availableQuantity: quantity,
+                farmerId: firebase.auth().currentUser.uid
+            })
+            .then(() => {
+                console.log("Listing added successfully.");
+               
+                document.getElementById("crop").value = "";
+                document.getElementById("price").value = "";
+                document.getElementById("quantity").value = "";
+            })
+            .catch((error) => {
+                console.error("Error adding listing:", error);
+            });
+        }
+
+        function calculateCreditValue() {
+            db.collection("orders").where("farmerId", "==", firebase.auth().currentUser.uid)
+                .get()
+                .then((querySnapshot) => {
+                    let totalOrderAmount = 0;
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        totalOrderAmount += data.totalCost;
+                    });
+                    const creditValue = totalOrderAmount * 0.7; 
+                    document.getElementById("credit-value").textContent = `You are eligible for a credit of $${creditValue.toFixed(2)}`;
+                })
+                .catch((error) => {
+                    console.error("Error calculating credit value:", error);
+                });
+        }
+
+        
+        function showDashboard() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("signup-container").style.display = "none";
+            document.getElementById("dashboard").style.display="flex";
+            
+            document.getElementById("heading").style.display="none";
+            document.querySelector(".login-div").style.height="0";
+          dashboard.scrollIntoView(window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // Load listings
+            db.collection("listings").where("farmerId", "==", firebase.auth().currentUser.uid).onSnapshot((querySnapshot) => {
+                const listings = document.getElementById("listings");
+                listings.innerHTML = ""; 
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const li = document.createElement("li");
+                    li.textContent = `${data.crop} - $${data.pricePerKg.toFixed(2)} per kg (${data.availableQuantity} kg available)`;
+                    listings.appendChild(li);
+                });
+            });
+
+           
+            db.collection("orders").where("farmerId", "==", firebase.auth().currentUser.uid)
+                .onSnapshot((querySnapshot) => {
+                    const orders = document.getElementById("orders");
+                    orders.innerHTML = ""; // Clear previous orders
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const li = document.createElement("li");
+                        li.textContent = `Order ID: ${doc.id}, Crop: ${data.crop}, Quantity: ${data.quantity} kg, Amount: $${data.totalCost}`;
+                        orders.appendChild(li);
+                    });
+                });
+                calculateCreditValue();
+        }
+
+       
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                showDashboard();
+            }
+        });
+    </script>
+</body>
+</html>

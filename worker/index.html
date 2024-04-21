@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labor Management System - Worker</title>
+    <!-- Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-out" id="loginOut">
+        <div id="loginForm" class="login-Form">
+            <div class="head-1">
+                <h2 style="color: rgb(5, 249, 5); font-size: 40px;">Login</h2>
+            </div>
+
+            <input type="email" id="email" placeholder="Email" class="input">
+            <input type="password" id="password" placeholder="Password" class="input">
+            <div class="btn-div"><button onclick="login()" class="btn">Login</button></div>
+            
+            <p>Don't have an account? <a href="#" onclick="showRegisterForm()" >Register</a></p>
+        </div>
+    </div>
+    
+    <div id="registerForm" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="registerEmail" placeholder="Email">
+        <input type="password" id="registerPassword" placeholder="Password">
+        <input type="number" id="userContact" placeholder="Contact Info">
+        <input type="text" id="location" placeholder="Location">
+        <input type="number" id="workHistory" placeholder="Work History (years)">
+        <input type="number" id="dailyRate" placeholder="Daily Rate (Rupees)">
+        <input type="text" id="skills" placeholder="Skills (comma separated)">
+        <button onclick="register()">Register</button>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+    </div>
+    <div id="dashboard" style="display: none;">
+        <!-- Add dashboard content here -->
+        <h2>Welcome, <span id="userName"></span>!</h2>
+        <button onclick="logout()">Logout</button>
+        <p>Email: <span id="userEmail"></span></p>
+        <p>Contact No.: <span id="userContact"></span></p>
+        <p>Location: <span id="userLocation"></span></p>
+        <p>Work History: <span id="userWorkHistory"></span> years</p>
+        <p>Daily Rate: <span id="userDailyRate"></span> Rupees</p>
+        <p>Skills: <span id="userSkills"></span></p>
+        <p>Availability: <span id="userAvailability"></span></p> <!-- Display availability status -->
+        <button onclick="toggleAvailability()">Toggle Availability</button>
+        
+        <button onclick="editProfile()">Edit Profile</button>  <!-- Button to update profile -->
+        <div id="reviews"></div>
+    </div>
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,
+wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+  ::-webkit-scrollbar{
+            display: none;
+        }
+    
+ body{
+    background-color: black;
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+ 
+.banner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 40vh;
+    width: 100vw;
+}
+.head-1{
+    font-size: 60px;
+    font-weight: 1000;
+    color: white;
+}
+.para{
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+}
+ .form-container {
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+.form{
+    display: flex;
+    background-color: #efffe5;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+    gap: 50px;
+    padding: 25px;
+}
+.form-content{
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   padding: 10px;
+}
+.input{
+    
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 50px;
+    justify-content: center;
+    
+    
+    
+}
+.btn {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(50, 160, 50); 
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(50, 160, 50); 
+}
+.prediction-out{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.prediction{
+    color: white;
+    padding: 20px;
+    width: fit-content;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.1), 
+                -5px -5px 10px rgba(255, 255, 255, 0.1);
+}
+
+@media only screen and (max-width: 768px) {
+    .head-1 {
+        font-size: 40px;
+    }
+
+    .para {
+        font-size: 20px;
+    }
+
+    .input {
+        max-width: 150px;
+    }
+
+    .btn {
+        width: 150px;
+        height: 40px;
+    }
+
+    .prediction{
+        padding: 10px;
+        height: 200px;
+        margin: 30px;
+    }
+}
+
+/* Mobile phones */
+@media only screen and (max-width: 480px) {
+    .head-1 {
+        font-size: 30px;
+    }
+
+    .para {
+        font-size: 16px;
+    }
+
+    .input {
+        max-width: 120px;
+    }
+
+    .btn {
+        width: 120px;
+        height: 30px;
+    }
+
+    .prediction {
+        padding: 10px;
+        height: 150px;
+        margin: 30px;
+    }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+   
+
+    <div class="banner-container">
+        <h1 class="head-1" >Identify Crop Health <span style="color:rgb(50, 160, 50) ;">Issues</span></h1>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <p class="para">Transform your farming experience with our Crop Health Detection
+         Tool. <br>Simply upload a photo and receive immediate <br> insights for healthier crops.</p>
+    </div>
+    
+    
+    <div class="form-container">
+        <form action="/" method="post" enctype="multipart/form-data" class="form" >
+            <div class="form-content">
+               <div class="input">
+                <input type="file" name="image" accept="image/*"  >
+               </div>
+                
+                <button type="submit" class="btn" >Upload</button>
+            </div>
+            
+        </form>
+
+    
+
+        
+        
+    </div>
+    <div class="prediction-out" id="prediction1" >
+        <div class="prediction">
+            {% if prediction %}
+            <h2>Prediction:</h2>
+           <script> prediction1.scrollIntoView(window.scrollTo({ top: 0, behavior: 'smooth' }));</script>
+            <p>{{ prediction }}</p>
+         {% endif %}
+        </div>
+    
+    </div>
+    
+   
+    
+
+   
+    
+        
+
+        
+
+
+    
+    
+</body>
+</html>

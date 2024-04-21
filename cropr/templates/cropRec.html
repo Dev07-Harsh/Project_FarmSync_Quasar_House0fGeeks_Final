@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Recommendation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,
+wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,
+wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    
+<style>
+    
+    ::-webkit-scrollbar{
+        display: none;
+    }
+body {
+    background-color: rgb(189, 239, 189);
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+  .benefit-out{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .benefits-container{
+    
+    display: flex;
+    flex-direction: column;
+    background-color: #efffe5;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  }
+
+
+
+.h1 {
+    font-size: 4rem;
+    font-weight: 1000;
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+
+.para {
+    font-size: 1.5rem;
+    text-align: center;
+    
+}
+
+
+.form-out-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.form-container {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #1c1c1c;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 50px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    height: 50px;
+    border: 2px solid #ddd; 
+    border-radius: 25px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+}
+
+.label {
+    font-weight: bold;
+}
+
+
+.btn-container {
+    text-align: center;
+}
+
+.btn {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(50, 160, 50); 
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(50, 160, 50); 
+}
+
+
+.recommendation {
+
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 20px;
+    
+    
+}
+.btn-2{
+    width: fit-content;
+    padding: 15px;
+}
+
+.rec {
+    color: white;
+    border: 2px solid rgb(46, 117, 46); 
+    border-radius: 15px;
+    padding: 20px;
+   background-color: #1c1c1c;
+    font-size: 1.2rem;
+    max-width: 100%;
+    text-align: center;
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), 
+                -10px -10px 20px rgba(255, 255, 255, 0.2);
+    margin-bottom: 50px;            
+}
+
+
+@media screen and (max-width: 768px) {
+    .form-container {
+        max-width: 90%;
+    }
+    .h1 {
+        font-size: 2rem;
+    }
+    .para {
+        font-size: 1rem;
+    }
+    .input {
+        font-size: 1rem;
+    }
+    .btn {
+        width: 150px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+body {
+    background-color: black;
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.benefit-out {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+.benefits-container {
+    background-color: #efffe5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+    width: 90%; 
+    max-width: 600px;
+    margin: auto; /* Center the container */
+}
+
+.h1{
+    color: white;
+}
+.para{
+    color: white;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.label {
+    font-weight: bold;
+    color: white;
+}
+
+.input {
+    height: 50px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+.btn {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(50, 160, 50);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(50, 160, 50);
+}
+
+.btn-2 {
+    width: fit-content;
+    padding: 15px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .benefits-container {
+        width: 90%; 
+        padding: 15px; 
+    }
+
+    .input {
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 150px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+
+    <div class="benefit-out"> 
+        <div class="benefits-container">
+            <h2>How to Proceed</h2>
+            <ul style="gap: 25px;">
+                <li> <span style="font-weight: bolder; font-size: large;">Input Region and Soil Type:</span>
+                     Enter the specific details about <br>
+                     your farming region and soil type into the designated fields.</li>
+
+                <li> <span style="font-weight: bolder; font-size: large;">Submit Form:</span>
+                     After filling in the required information, <br>
+                     click the "Submit" button to initiate the recommendation process.</li>
+
+                <li><span style="font-weight: bolder; font-size: large;">Review Recommendations:</span>
+                     Once the recommendations are generated, <br>
+                     review the suggested crops and their associated details.</li>
+
+                <li><span style="font-weight: bolder; font-size: large;">Make Informed Decisions:</span>
+                     Use the provided information to make informed <br>
+                    decisions about which crops to cultivate based on your region and soil type.</li>
+
+               
+                      
+                
+                
+            </ul>
+            <div class="btn-cont" style="text-align: center;">
+                <button id="showBenefitsBtn" class="btn btn-2">Let's Go</button>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    
+
+    <div class="page-text">
+        <h1 class="h1">Cultivate Your Crops <span style="color: rgb(50, 160, 50) ;">Smartly</span></h1>
+        <div class="p-text">
+            <p class="para">Discover the power of our Crop Recommendation. <br>
+                With precision analysis of regional factors and Soil types, 
+                 and Market Demand.<br> Our platform provides tailored crop suggestions for optimal <br>
+                  yield and sustainable farming practices.</p> 
+        </div>
+    
+    </div>
+    
+    <div class="form-out-container">
+        <div class="form-container">
+        <form id="crop-form" class="form">
+           <label for="region" class="label" >Region:</label>
+           <input type="text" id="region" name="region" required class="input" placeholder="Enter your region">
+          <br>
+           <label for="soil_type" class="label" >Soil Type:</label>
+           <input type="text" id="soil_type" name="soil_type" required class="input" placeholder="Enter soil type">
+          <br>
+          <div class="btn-container">
+            <button type="button" onclick="recommendCrops()" class=" btn">Submit</button>
+          </div>
+                
+        </form>
+        
+     </div>
+  </div>
+    
+    
+   
+    <div class="recommendation" style="display: none;">
+        <div id="recommendations" class="rec">
+            <dotlottie-player src="https://lottie.host/c59f7193-84a4-4022-9674-0f9048818a98/ZtuSBX9GoI.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+        </div>
+        
+    </div>
+    
+    <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+   
+    const pageText = document.querySelector('.page-text');
+    const formOutContainer = document.querySelector('.form-out-container');
+    const recommendation = document.querySelector('.recommendation');
+
+    pageText.style.display = 'none';
+    formOutContainer.style.display = 'none';
+    recommendation.style.display = 'none';
+
+    
+    const showBenefitsBtn = document.getElementById('showBenefitsBtn');
+
+   
+    showBenefitsBtn.addEventListener('click', function() {
+        
+        const benefitsContainer = document.querySelector('.benefits-container');
+        benefitsContainer.style.display = 'none';
+        document.querySelector(".benefit-out").style.height="0";
+        document.querySelector(".benefit-out").style.minheight="0";
+    
+        pageText.style.display = 'block';
+        formOutContainer.style.display = 'flex';
+
+       
+        formOutContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+        
+        const pageText = document.querySelector('.page-text');
+        const formOutContainer = document.querySelector('.form-out-container');
+        const recommendation = document.querySelector('.recommendation');
+
+        pageText.style.display = 'none';
+        formOutContainer.style.display = 'none';
+        recommendation.style.display = 'none';
+
+       
+        const showBenefitsBtn = document.getElementById('showBenefitsBtn');
+
+       
+        showBenefitsBtn.addEventListener('click', function() {
+            
+            const benefitsContainer = document.querySelector('.benefits-container');
+            benefitsContainer.style.display = 'none';
+
+           
+            pageText.style.display = 'block';
+            formOutContainer.style.display = 'flex';
+        });
+    });
+
+
+
+    async function recommendCrops() {
+    const region = document.getElementById('region').value;
+    const soilType = document.getElementById('soil_type').value;
+    const recommendationsDiv = document.getElementById('recommendations');
+    const loadingAnimation = document.querySelector('.recommendation dotlottie-player');
+
+    if (!loadingAnimation) {
+        console.error('Loading animation element not found');
+        return;
+    }
+
+    loadingAnimation.style.display = 'block'; 
+
+    var recommendationDiv = document.querySelector(".recommendation");
+    recommendationDiv.style.display = "flex";
+
+    recommendationDiv.scrollIntoView({ top: 0, behavior: 'smooth' });
+
+    try {
+        const response = await fetch('/analyze', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ region, soil_type: soilType })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error retrieving recommendations');
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data.recommendations)) {
+            throw new Error('Data received is not in the expected format');
+        }
+
+        recommendationsDiv.innerHTML = ''; 
+        data.recommendations.forEach(chunk => {
+            const chunkElement = document.createElement('div');
+            chunk.forEach(recommendation => {
+                const recommendationElement = document.createElement('p');
+                recommendationElement.textContent = recommendation;
+                chunkElement.appendChild(recommendationElement);
+            });
+            recommendationsDiv.appendChild(chunkElement);
+        });
+        recommendationDiv.scrollIntoView({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+        console.error('Error:', error);
+        recommendationsDiv.innerHTML = 'Error retrieving recommendations'; 
+    } finally {
+        if (loadingAnimation) {
+            loadingAnimation.style.display = 'none'; 
+        }
+    }
+}
+
+
+ 
+   
+    
+        
+            
+           
+            
+
+            
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kissan Samvvad prototype</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+    
+   
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <style>
+        
+        /* Custom CSS */
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: black;
+        }
+
+        label,
+        h2 {
+            color: white;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            padding: 0;
+            box-shadow: 5px 5px 10px #1c1c1c, -5px -5px 10px #323232;
+        }
+
+        .card-body {
+            box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.1), -10px -10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .card-text,
+        .card-title {
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 18px;
+            margin: 0 10px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            background-color: #333333;
+            box-shadow: 5px 5px 10px #1c1c1c, -5px -5px 10px #323232;
+        }
+
+        .nav-links a:hover {
+            background-color: #555555;
+        }
+
+        section {
+            margin: 20px;
+        }
+
+        .head-1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            text-align: center;
+        }
+
+        .form-cont {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            margin: 0;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .main-form {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .ip-out {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .ip {
+            border-radius: 15px;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            color: white;
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+
+        #flashMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12.5px 30px;
+            border: 0;
+            width: fit-content;
+            border-radius: 100px;
+            background-color: rgb(50, 160, 50);
+            color: #ffffff;
+            font-weight: Bold;
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+        }
+
+        .btn:hover {
+            background-color: rgb(50, 160, 50);
+            box-shadow: 0 0 20px #6fc5ff50;
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .btn:active {
+            background-color: rgb(50, 160, 50);
+            transition: all 0.25s;
+            -webkit-transition: all 0.25s;
+            box-shadow: none;
+            transform: scale(0.98);
+        }
+
+        
+
+        .crd-out {
+            width: fit-content;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .community-feed {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-height: calc(100vh - 80px); /* Set maximum height to viewport height */
+            overflow-y: auto; 
+            scroll-behavior: smooth;
+            justify-content: center;
+            align-items: center;
+        }
+    
+    </style>
+</head>
+
+<body>
+   
+    <div class="navbar">
+        <div class="logo">
+            <img src="../assets/images/logo with no bg.png" alt="" style="height: 50px; width: 50px;">
+            <h3>Kissan Samvaad</h3>
+            </div>
+        <nav class="nav-links">
+            <a href="../html/demo.html">Home</a>
+            
+        </nav>
+    </div>
+    
+    <script type="module" defer>
+        // can be used from .env file but for simplicity used directly
+        const firebaseConfig = {
+           
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to the Firebase database service
+        const database = firebase.database();
+
+  
+        // Define the likePost function
+function likePost(postId) {
+    const postRef = database.ref(`posts/${postId}`);
+    postRef.transaction((post) => {
+        if (post) {
+            post.likes = (post.likes || 0) + 1; // Increment likes count
+            showFlashMessage('You liked the post!');
+        }
+        return post;
+    });
+}
+
+
+
+document.addEventListener('click', function(event) {
+   
+    if (event.target.classList.contains('like-button')) {
+       
+        const postId = event.target.getAttribute('data-post-id');
+        
+        likePost(postId);
+    }
+
+  
+    if (event.target.classList.contains('show-comments-button')) {
+       
+        const postId = event.target.getAttribute('data-post-id');
+        
+        showComments(postId);
+    }
+
+  
+    if (event.target.classList.contains('add-comment-button')) {
+       
+        const postId = event.target.getAttribute('data-post-id');
+        
+        addComment(postId);
+    }
+});
+
+
+      
+       function addComment(postId) {
+    const commentInput = document.getElementById(`comment-${postId}`);
+    const username = 'Anonymous'; 
+    const text = commentInput.value.trim();
+
+    if (text) {
+        const postRef = database.ref(`posts/${postId}/comments`);
+        postRef.push({ username: username, text: text }); 
+        commentInput.value = '';
+    } else {
+        alert('Please enter a comment.');
+    }
+}
+
+
+
+function showComments(postId) {
+    const commentsContainer = document.getElementById(`comments-container-${postId}`);
+    const commentForm = document.getElementById(`commentForm-${postId}`);
+
+    if (commentsContainer.style.display === 'none') {
+        commentsContainer.innerHTML = '';
+        const postRef = database.ref(`posts/${postId}`);
+        postRef.once('value', (snapshot) => {
+            const post = snapshot.val();
+            if (post && post.comments) {
+                commentsContainer.innerHTML = ''; 
+                postRef.child('comments').once('value', (commentsSnapshot) => {
+                    const comments = commentsSnapshot.val();
+                    Object.values(comments).forEach(comment => {
+                        const commentElement = document.createElement('div');
+                        commentElement.innerHTML = `<p><strong>${comment.username}:</strong> ${comment.text}</p>`;
+                        commentsContainer.appendChild(commentElement);
+                    });
+                    const commentCount = Object.keys(comments).length;
+                    const commentCountElement = document.createElement('p');
+                    commentCountElement.innerText = `Total Comments: ${commentCount}`;
+                    commentsContainer.appendChild(commentCountElement);
+                });
+            }
+        });
+
+        commentsContainer.style.display = 'block';
+        commentsContainer.style.color = 'white';
+        commentForm.style.display = 'block';
+    } else {
+        commentsContainer.style.display = 'none';
+        commentForm.style.display = 'none';
+    }
+}
+
+
+
+const communityFeed = document.getElementById('communityFeed');
+database.ref('posts').orderByChild('timestamp').on('value', (snapshot) => { 
+    communityFeed.innerHTML = ''; 
+    snapshot.forEach((childSnapshot) => {
+        const post = childSnapshot.val();
+        const postId = childSnapshot.key; 
+        const postElement = document.createElement('div');
+        postElement.style.width = 'fit-content';
+        postElement.style.height = 'fit-content';
+        postElement.classList.add('crd-out')
+        const timestamp = new Date(post.timestamp).toLocaleString(); 
+        postElement.innerHTML = `
+            <div class="card crd mb-5" style = "  background-color: #333333;">
+                <div class="card-body">
+                    <h5 class="card-title">${post.username}</h5>
+                    <p class="card-text">${post.content}</p>
+                    ${post.imageUrl ? `<img src="${post.imageUrl}" class="img-fluid" style="max-width: 300px; height: 300px;" alt="Post Image" >` : ''}
+                    <p class="card-text">${post.likes} likes| ${post.comments ? Object.keys(post.comments).length : 0} comments | ${timestamp}</p>
+
+                    <button class="btn btn-primary like-button" data-post-id="${postId}">Like</button>
+                    <button class="btn btn-primary show-comments-button" data-post-id="${postId}">Show Comments</button>
+
+                    <div id="comments-container-${postId}" class="mt-3" style="display: none;"></div>
+                    <form id="commentForm-${postId}" class="mt-3" style="display: none;">
+                        <div class="mb-3">
+                            <label for="comment-${postId}" class="form-label">Comment:</label>
+                            <input type="text" id="comment-${postId}" name="comment-${postId}" class="form-control" required>
+                        </div>
+                        <button class="btn btn-primary add-comment-button" data-post-id="${postId}">Add Comment</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+        `;
+        communityFeed.insertBefore(postElement, communityFeed.firstChild);
+    });
+});
+
+
+
+
+        function showFlashMessage(message) {
+            const flashContainer = document.getElementById('flashMessage');
+            flashContainer.innerText = message;
+            flashContainer.style.display = 'block';
+            setTimeout(() => {
+                flashContainer.style.display = 'none';
+            }, 3000);
+        }
+
+        
+       
+
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const content = document.getElementById('content').value;
+            const image = document.getElementById('image').files[0];
+
+           
+            const timestamp = firebase.database.ServerValue.TIMESTAMP; 
+            const postId = database.ref('posts').push().key; 
+            if (image) { 
+                const storageRef = firebase.storage().ref();
+                const imagesRef = storageRef.child(`post_images/${image.name}`); 
+
+                // Upload image to Firebase Storage
+                imagesRef.put(image).then((snapshot) => {
+                   
+                    snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        database.ref(`posts/${postId}`).set({
+                            username: username,
+                            content: content,
+                            imageUrl: downloadURL, // Save the image download URL
+                            likes: 0, // Initialize likes count to 0
+                            comments: [], // Initialize comments array to empty
+                            timestamp: timestamp // Save the timestamp
+                        });
+                    });
+                });
+            } else { // If no image is selected
+                database.ref(`posts/${postId}`).set({
+                    username: username,
+                    content: content,
+                    likes: 0, // Initialize likes count to 0
+                    comments: [], // Initialize comments array to empty
+                    timestamp: timestamp // Save the timestamp
+                });
+            }
+
+            // Clear form inputs
+            document.getElementById('username').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('image').value = '';
+
+           
+            showFlashMessage('Post uploaded successfully!');
+        });
+    </script>
+    
+    <section class=" form-cont">
+        <div id="flashMessage"></div>
+
+        <div class="form-text-cont"></div>
+
+        <div class="head-1">
+            <h2 style="font-weight: 700; font-size: 60px;">Add New <span style="color: rgb(14, 240, 14) !important;">Post</span></h2>
+        </div>
+        
+        <form id="postForm" class="mb-4 main-form">
+            <div class="ip-out">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" id="username" name="username" class="form-control ip" required>
+            </div>
+            <div class="ip-out">
+                <label for="content" class="form-label">Post Content:</label>
+                <textarea id="content" name="content" class="form-control" required></textarea>
+            </div>
+            <div class="ip-out">
+                <label for="image" class="form-label">Upload Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" class="form-control">
+            </div>
+                  <div class="btn-div">
+                    <button type="submit" class="btn btn-primary">Post</button>
+                  </div>
+            
+        </form>
+    </section>
+
+    <section class="container md-6">
+        
+        <div id="communityFeed" class="community-feed "></div>
+    </section>
+
+    <footer class="text-center mt-5" style="color: white;">
+        <p>&copy; 2024 Farmers Community </p>
+    </footer>
+</body>
+
+</html>
